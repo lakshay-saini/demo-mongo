@@ -1,0 +1,21 @@
+version: '3.1'
+
+services:
+  mongo:
+    image: mongo
+    ports:
+    - 27017:27017
+  demo-mongo:
+    container_name: demo-mongo-app
+    image: demo-mongo:v2
+    environment:
+      SPRING_DATA_MONGODB_HOST: mongo
+      SPRING_DATA_MONGODB_PORT: 27017
+      SPRING_DATA_MONGODB_DATABASE: greeting
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+    - 8443:8443
+    links:
+      - mongo
